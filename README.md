@@ -1,1 +1,1 @@
-# webdev-task3
+Built an interactive, responsive web application as part of Task 3 of my Web Development Internship at ApexPlanet Software Pvt Ltd. Implemented responsive design with media queries, an interactive JavaScript quiz, an image carousel, and real-time API integration.
