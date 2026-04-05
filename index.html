@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced CSS & JS Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@400;600;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<header>
+  <div class="logo">WebDev⚡Lab</div>
+  <nav>
+    <a href="#responsive">Responsive</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#carousel">Carousel</a>
+    <a href="#api">API Fetch</a>
+  </nav>
+  <button class="hbg" id="hbg" aria-label="Menu">☰</button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#responsive" onclick="closeNav()">Responsive</a>
+  <a href="#quiz" onclick="closeNav()">Quiz</a>
+  <a href="#carousel" onclick="closeNav()">Carousel</a>
+  <a href="#api" onclick="closeNav()">API Fetch</a>
+</div>
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="tag"><span class="tag-dot"></span> Advanced CSS &amp; JavaScript</div>
+  <h1>Build <span class="hi">Interactive</span><br><span class="hg">Modern</span> Websites</h1>
+  <p class="hero-sub">Responsive design with media queries · JavaScript quiz &amp; carousel · Real-time API data — all in one complete project.</p>
+  <div class="hero-pills">
+    <a class="pill p1" href="#responsive">📐 Responsive</a>
+    <a class="pill p2" href="#quiz">🧠 Quiz</a>
+    <a class="pill p3" href="#carousel">🎠 Carousel</a>
+    <a class="pill p4" href="#api">🌐 API Fetch</a>
+  </div>
+</section>
+<section class="section" id="responsive">
+  <div class="sec-tag">// Step 01</div>
+  <h2>Responsive Design</h2>
+  <p class="sec-desc">Media queries make your layout adapt to any screen. Resize your browser window to watch the indicator below update in real time.</p>
+
+  <div class="live-badge" id="bpBadge">
+    📡 &nbsp;Current breakpoint: <strong id="bpText">🖥 Desktop ≥ 901px</strong>
+    &nbsp;—&nbsp; <span style="font-size:0.75rem;color:var(--muted)">Resize to change</span>
+  </div>
+
+  <div class="bp-grid">
+    <div class="bp-card">
+      <div class="bp-icon">📱</div>
+      <div class="bp-title">Mobile</div>
+      <div class="bp-range">≤ 580px</div>
+      <div class="bp-desc">Single column. Full-width elements. Hamburger nav. Larger touch targets for easy tapping.</div>
+    </div>
+    <div class="bp-card">
+      <div class="bp-icon">📟</div>
+      <div class="bp-title">Tablet</div>
+      <div class="bp-range">581px – 900px</div>
+      <div class="bp-desc">Two-column grid. Nav collapses. Cards rearrange. Optimised for both portrait and landscape.</div>
+    </div>
+    <div class="bp-card">
+      <div class="bp-icon">🖥</div>
+      <div class="bp-title">Desktop</div>
+      <div class="bp-range">≥ 901px</div>
+      <div class="bp-desc">Three-column layout. Full navigation bar. Generous whitespace and large typography.</div>
+    </div>
+  </div>
+
+  <div class="code-block">
+<span class="cm">/* ── Mobile-first approach ── */</span>
+<span class="sel">.grid</span> { <span class="kw">display</span>: <span class="val">grid</span>; <span class="kw">grid-template-columns</span>: <span class="val">1fr</span>; <span class="kw">gap</span>: <span class="val">14px</span>; }
+
+<span class="kw">@media</span> (<span class="val">min-width: 581px</span>) {        <span class="cm">/* Tablet */</span>
+  <span class="sel">.grid</span> { <span class="kw">grid-template-columns</span>: <span class="val">repeat(2, 1fr)</span>; }
+  <span class="sel">nav</span>   { <span class="kw">display</span>: <span class="val">none</span>; }
+  <span class="sel">.hamburger</span> { <span class="kw">display</span>: <span class="val">flex</span>; }
+}
+
+<span class="kw">@media</span> (<span class="val">min-width: 901px</span>) {        <span class="cm">/* Desktop */</span>
+  <span class="sel">.grid</span> { <span class="kw">grid-template-columns</span>: <span class="val">repeat(3, 1fr)</span>; }
+  <span class="sel">nav</span>   { <span class="kw">display</span>: <span class="val">flex</span>; }
+}
+  </div>
+</section>
+
+<section class="section" id="quiz">
+  <div class="sec-tag">// Step 02</div>
+  <h2>Interactive Quiz</h2>
+  <p class="sec-desc">5 JavaScript-powered questions with instant feedback, live score tracking, progress bar, and animated results card.</p>
+
+  <div class="quiz-wrap">
+    <div id="quizBody">
+      <div class="q-prog-bar">
+        <div class="q-prog-fill" id="progFill" style="width:0%"></div>
+      </div>
+      <div class="q-meta">
+        <div class="q-count" id="qCount">Question 1 of 5</div>
+        <div class="q-score-live" id="qScoreLive">Score: 0</div>
+      </div>
+      <div class="q-text" id="qText">Loading…</div>
+      <div class="q-opts" id="qOpts"></div>
+      <div class="q-fb" id="qFb"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-p" id="nextBtn" onclick="nextQ()" disabled>Next →</button>
+        <button class="btn btn-o" onclick="resetQuiz()">↺ Restart</button>
+      </div>
+    </div>
+
+    <div class="score-card" id="scoreCard">
+      <div class="score-emoji" id="sEmoji">🏆</div>
+      <div class="score-big" id="sBig">5/5</div>
+      <div class="score-sub" id="sSub">Excellent!</div>
+      <br>
+      <button class="btn btn-p" onclick="resetQuiz()">↺ Play Again</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="carousel">
+  <div class="sec-tag">// Step 03</div>
+  <h2>Image Carousel</h2>
+  <p class="sec-desc">Auto-playing carousel with arrow navigation, keyboard support (← →), swipe gestures, and animated dot indicators.</p>
+
+  <div class="car-wrap">
+    <div class="car-track" id="carTrack">
+      <div class="car-slide">
+        <div class="s-num">01 / 05</div>
+        <div class="s-icon">🎨</div>
+        <div class="s-title">CSS Variables</div>
+        <div class="s-desc">Store values with <code style="color:var(--accent)">--var-name</code> and reuse them across your stylesheet. One change updates your entire theme instantly.</div>
+      </div>
+      <div class="car-slide">
+        <div class="s-num">02 / 05</div>
+        <div class="s-icon">⚡</div>
+        <div class="s-title">JavaScript Fetch API</div>
+        <div class="s-desc">Use <code style="color:var(--green)">fetch()</code> with <code style="color:var(--green)">async/await</code> to pull data from any REST API and render it dynamically on your page.</div>
+      </div>
+      <div class="car-slide">
+        <div class="s-num">03 / 05</div>
+        <div class="s-icon">📐</div>
+        <div class="s-title">CSS Grid & Flexbox</div>
+        <div class="s-desc">Grid handles 2D layouts; Flexbox handles 1D flows. Combine both for full control over any page structure at any screen size.</div>
+      </div>
+      <div class="car-slide">
+        <div class="s-num">04 / 05</div>
+        <div class="s-icon">📱</div>
+        <div class="s-title">Media Queries</div>
+        <div class="s-desc">Write CSS that responds to screen width, height, orientation, and more. Mobile-first design ensures great UX everywhere.</div>
+      </div>
+      <div class="car-slide">
+        <div class="s-num">05 / 05</div>
+        <div class="s-icon">🔗</div>
+        <div class="s-title">REST APIs & JSON</div>
+        <div class="s-desc">APIs communicate over HTTP using GET, POST, PUT, DELETE. Data is returned as JSON — JavaScript can parse and display it instantly.</div>
+      </div>
+    </div>
+
+    <div class="car-nav">
+      <button class="car-btn" onclick="prevSlide()" aria-label="Prev">←</button>
+      <div class="dots" id="carDots"></div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="auto-tag"><div class="auto-dot"></div> Auto-play</div>
+        <button class="car-btn" onclick="nextSlide()" aria-label="Next">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="api">
+  <div class="sec-tag">// Step 04</div>
+  <h2>Fetch API Data</h2>
+  <p class="sec-desc">Live data from two public APIs using <code style="color:var(--green);font-family:var(--font-code)">fetch()</code> and <code style="color:var(--green);font-family:var(--font-code)">async/await</code>. Click Refresh for new content.</p>
+
+  <div class="api-grid">
+    <div class="api-card">
+      <div class="api-head">
+        <div class="api-title">😂 Joke API <span class="api-src">official-joke-api.appspot.com</span></div>
+        <button class="btn btn-o" onclick="fetchJoke()" style="padding:6px 14px;font-size:0.72rem;">↻ New</button>
+      </div>
+      <div class="api-body" id="jokeBody"><div class="spinner"></div></div>
+    </div>
+    <div class="api-card">
+      <div class="api-head">
+        <div class="api-title">🐶 Dog API <span class="api-src">dog.ceo/api</span></div>
+        <button class="btn btn-o" onclick="fetchDog()" style="padding:6px 14px;font-size:0.72rem;">↻ New</button>
+      </div>
+      <div class="api-body" id="dogBody"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <div class="code-block">
+<span class="cm">// ── How async/await API fetch works ──</span>
+<span class="kw">async function</span> <span class="sel">fetchData</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> response = <span class="kw">await</span> <span class="val">fetch</span>(<span class="str">'https://api.example.com/data'</span>);
+    <span class="kw">const</span> data     = <span class="kw">await</span> response.<span class="val">json</span>();   <span class="cm">// parse JSON</span>
+    document.<span class="val">getElementById</span>(<span class="str">'output'</span>).textContent = data.result;
+  } <span class="kw">catch</span> (err) {
+    console.<span class="val">error</span>(<span class="str">'Fetch failed:'</span>, err);
+  }
+}
+<span class="sel">fetchData</span>();
+  </div>
+</sect
+<footer>
+  <div>Advanced CSS &amp; JavaScript — Interactive Lab</div>
+  <div><span>Responsive</span> · <span>Quiz</span> · <span>Carousel</span> · <span>API Fetch</span></div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
